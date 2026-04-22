@@ -1,0 +1,128 @@
+use EcomerceDB
+show dbs
+
+db.createCollection("CustemerOrers")
+
+show collections
+
+db.CustomerOrders.insertOne({
+  CustomerName: 'Alice Brown',
+  Product: 'Laptop',
+  Quantity: 1,
+  Price: 1200.00,
+  OrderDate: new Date('2024-03-01')
+})
+
+db.CustomerOrders.insertMany([
+    {
+        OrderID: 102,
+        CustomerName: "Bob Smith",
+        Product: "Smartphone",
+        Quantity: 2,
+        Price: 699.99,
+        OrderDate: new Date("2024-03-02"),
+        Status: "Pending"
+    },
+    {
+        OrderID: 103,
+        CustomerName: "Charlie Lee",
+        Product: "Headphones",
+        Quantity: 3,
+        Price: 49.99,
+        OrderDate: new Date("2024-03-03"),
+        Status: "Delivered"
+    },
+    {
+        OrderID: 104,
+        CustomerName: "David Wong",
+        Product: "Monitor",
+        Quantity: 1,
+        Price: 250.00,
+        OrderDate: new Date("2024-03-04"),
+        Status: "Shipped"
+    },
+    {
+        OrderID: 105,
+        CustomerName: "Emma Johnson",
+        Product: "Keyboard",
+        Quantity: 2,
+        Price: 79.99,
+        OrderDate: new Date("2024-03-05"),
+        Status: "Canceled"
+    },
+    {
+        OrderID: 106,
+        CustomerName: "Frank Adams",
+        Product: "Mouse",
+        Quantity: 1,
+        Price: 29.99,
+        OrderDate: new Date("2024-03-06"),
+        Status: "Pending"
+    },
+    {
+        OrderID: 107,
+        CustomerName: "Grace White",
+        Product: "Tablet",
+        Quantity: 1,
+        Price: 499.99,
+        OrderDate: new Date("2024-03-07"),
+        Status: "Delivered"
+    },
+    {
+        OrderID: 108,
+        CustomerName: "Henry Clark",
+        Product: "Smartwatch",
+        Quantity: 1,
+        Price: 199.99,
+        OrderDate: new Date("2024-03-08"),
+        Status: "Shipped"
+    },
+    {
+        OrderID: 109,
+        CustomerName: "Ivy Turner",
+        Product: "Laptop",
+        Quantity: 1,
+        Price: 1299.00,
+        OrderDate: new Date("2024-03-09"),
+        Status: "Delivered"
+    },
+    {
+        OrderID: 110,
+        CustomerName: "Jack Miller",
+        Product: "Wireless Earbuds",
+        Quantity: 2,
+        Price: 99.99,
+        OrderDate: new Date("2024-03-10"),
+        Status: "Pending"
+    }
+])
+
+db.CustomerOrders.find()
+
+db.CustomerOrders.find({CustomerName:'Grace White'})
+
+db.CustomerOrders.find({Price : {$gt:500}})
+
+db.CustomerOrders.find({Status : "Pending"})
+
+db.CustomerOrders.find({
+	OrderDate:{
+		$gtr:new Date("2024-03-03"),
+		$lte:new Date("2024-03-07")
+	}
+})
+
+db.CustomerOrders.find({
+  Price: { $gte: 50, $lte: 100 }
+})
+
+db.CustomerOrders.find({
+  Price: { $gte: 200, $lte: 800 }
+})
+
+db.CustomerOrders.find({
+  $or: [
+    { Status: "Shipped" },
+    { Status: "Delivered" }
+  ]
+})

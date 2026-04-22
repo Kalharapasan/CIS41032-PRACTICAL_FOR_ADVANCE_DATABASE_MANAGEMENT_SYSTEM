@@ -1,0 +1,67 @@
+use OnlineStoreDB
+
+db.createCollection("Products")
+
+db.Products.insertOne({
+  ProductID: 301,
+  ProductName: "Laptop",
+  Category: "Electronics",
+  Price: 1200.00,
+  Stock: 15,
+  Rating: 4.5,
+  AddedDate: new Date("2024-02-01")
+})
+
+
+db.Products.insertMany([
+  { ProductID: 301, ProductName: "Laptop", Category: "Electronics", Price: 1200.00, Stock: 15, Rating: 4.5, AddedDate: new Date("2024-02-01") },
+  { ProductID: 302, ProductName: "Smartphone", Category: "Electronics", Price: 699.99, Stock: 25, Rating: 4.7, AddedDate: new Date("2024-02-05") },
+  { ProductID: 303, ProductName: "Headphones", Category: "Accessories", Price: 49.99, Stock: 50, Rating: 4.3, AddedDate: new Date("2024-02-10") },
+  { ProductID: 304, ProductName: "Monitor", Category: "Electronics", Price: 250.00, Stock: 10, Rating: 4.6, AddedDate: new Date("2024-02-15") },
+  { ProductID: 305, ProductName: "Keyboard", Category: "Accessories", Price: 79.99, Stock: 30, Rating: 4.2, AddedDate: new Date("2024-02-20") },
+  { ProductID: 306, ProductName: "Mouse", Category: "Accessories", Price: 29.99, Stock: 45, Rating: 4.1, AddedDate: new Date("2024-02-25") },
+  { ProductID: 307, ProductName: "Tablet", Category: "Electronics", Price: 499.99, Stock: 20, Rating: 4.4, AddedDate: new Date("2024-03-01") },
+  { ProductID: 308, ProductName: "Smartwatch", Category: "Wearable Tech", Price: 199.99, Stock: 18, Rating: 4.5, AddedDate: new Date("2024-03-05") },
+  { ProductID: 309, ProductName: "Wireless Earbuds", Category: "Accessories", Price: 99.99, Stock: 35, Rating: 4.3, AddedDate: new Date("2024-03-10") },
+  { ProductID: 310, ProductName: "Gaming Chair", Category: "Furniture", Price: 250.00, Stock: 12, Rating: 4.6, AddedDate: new Date("2024-03-15") }
+])
+
+
+db.Products.find()
+
+
+db.Products.find({ ProductName: "Tablet" })
+
+db.Products.find({ Category: "Electronics" })
+
+db.Products.find({ Price: { $gt: 500 } })
+
+db.Products.find({ Stock: { $lt: 20 } })
+
+db.Products.find({ Rating: { $gte: 4.5 } })
+
+db.Products.find({
+  Category: { $in: ["Accessories", "Wearable Tech"] }
+})
+
+
+db.Products.find().sort({ Price: 1 })
+
+db.Products.find({
+  AddedDate: { $gt: new Date("2024-02-10") }
+})
+
+
+db.Products.find({
+  Price: { $gte: 50, $lte: 250 }
+})
+
+db.Products.find({
+  ProductName: { $regex: "^S" }
+})
+
+
+db.Products.find()
+  .sort({ Price: -1 })
+  .limit(3)
+
