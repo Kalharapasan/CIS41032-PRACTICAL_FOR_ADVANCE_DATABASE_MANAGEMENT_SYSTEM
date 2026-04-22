@@ -16,10 +16,11 @@ Worked on LB03 MongoDB practical exercises for database, collection, and query o
 4. Practiced sorting, projection, limiting, and document counting operations.
 
 ### Files Worked On
-- `02.LB03/Task01.txt`
-- `02.LB03/EX01.txt`
-- `02.LB03/EX02.txt`
+- `02.LB03/Task01.bson`
+- `02.LB03/EX01.bson`
+- `02.LB03/EX02.bson`
+- `02.LB03/LB3.bson`
 
 ### Notes
 - The scripts are organized as step-by-step practice blocks.
-- The same practical set is also available under `00.Lab Work/01.Day 01 LB01&LB03 (2026.04.21)/`.
+- The same practical set is also available under `00.Lab Work/01.Day 01 LB01&LB03 (2026.04.21)/` with matching `.bson` files.
