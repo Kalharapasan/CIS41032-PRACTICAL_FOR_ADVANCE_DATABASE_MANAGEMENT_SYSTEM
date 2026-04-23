@@ -1,0 +1,64 @@
+use LibraryDB
+
+db.createCollection("Books")
+
+db.Books.insertMany([
+{BookID:301, Title:"The Great Gatsby", Author:"F. Scott Fitzgerald", Genre:"Fiction", PublishedYear:1925, CopiesAvailable:3, TotalCopies:5, Status:"Available"},
+{BookID:302, Title:"To Kill a Mockingbird", Author:"Harper Lee", Genre:"Fiction", PublishedYear:1960, CopiesAvailable:1, TotalCopies:4, Status:"Available"},
+{BookID:303, Title:"1984", Author:"George Orwell", Genre:"Dystopian", PublishedYear:1949, CopiesAvailable:0, TotalCopies:6, Status:"Borrowed"},
+{BookID:304, Title:"The Catcher in the Rye", Author:"J.D. Salinger", Genre:"Fiction", PublishedYear:1951, CopiesAvailable:2, TotalCopies:3, Status:"Available"},
+{BookID:305, Title:"Moby-Dick", Author:"Herman Melville", Genre:"Adventure", PublishedYear:1851, CopiesAvailable:5, TotalCopies:5, Status:"Available"},
+{BookID:306, Title:"Pride and Prejudice", Author:"Jane Austen", Genre:"Romance", PublishedYear:1813, CopiesAvailable:1, TotalCopies:4, Status:"Available"},
+{BookID:307, Title:"The Hobbit", Author:"J.R.R. Tolkien", Genre:"Fantasy", PublishedYear:1937, CopiesAvailable:0, TotalCopies:7, Status:"Borrowed"},
+{BookID:308, Title:"War and Peace", Author:"Leo Tolstoy", Genre:"Historical", PublishedYear:1869, CopiesAvailable:2, TotalCopies:5, Status:"Available"},
+{BookID:309, Title:"Hamlet", Author:"William Shakespeare", Genre:"Drama", PublishedYear:1603, CopiesAvailable:4, TotalCopies:6, Status:"Available"},
+{BookID:310, Title:"Crime and Punishment", Author:"Fyodor Dostoevsky", Genre:"Crime", PublishedYear:1866, CopiesAvailable:3, TotalCopies:4, Status:"Available"}
+])
+
+db.Books.updateOne(
+  { Title: "1984" },
+  {
+    $inc: { TotalCopies: 2, CopiesAvailable: 2 }
+  }
+)
+
+db.Books.updateOne(
+  { Title: "Pride and Prejudice", CopiesAvailable: { $lt: 2 } },
+  { $set: { Status: "Reserved" } }
+)
+
+
+db.Books.updateMany(
+  { PublishedYear: { $lt: 1900 } },
+  { $set: { Classic: true } }
+)
+
+db.Books.updateOne(
+  { Title: "The Hobbit" },
+  { $set: { Genre: "Epic Fantasy" } }
+)
+
+db.Books.updateMany(
+  { Status: "Borrowed" },
+  { $set: { LastBorrowedDate: new Date("2026-01-01") } }
+)
+
+db.Books.deleteMany(
+  { TotalCopies: { $lt: 3 } }
+)
+
+db.Books.deleteOne(
+  { Title: "Crime and Punishment" }
+)
+
+db.Books.updateMany(
+  { PublishedYear: { $gt: 1900 } },
+  { $unset: { Classic: "" } }
+)
+
+db.Books.deleteMany(
+  {
+    Status: "Borrowed",
+    TotalCopies: 0
+  }
+)
