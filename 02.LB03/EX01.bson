@@ -38,3 +38,10 @@ db.Employees.find({
 db.Employees.find({
   Name: { $regex: "^A" }
 })
+
+db.Employees.find ({
+	Department:{$ne:"IT"}
+})
+
+use testDB
+db.dropDatabase()

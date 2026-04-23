@@ -1,0 +1,64 @@
+use SchoolDB
+
+db.createCollection("Students")
+
+db.Students.insertMany([
+{StudentID:101, Name:"Emma Johnson", Age:14, Grade:9, Section:"A", Marks:85, EnrollmentDate:new Date("2021-06-10"), Status:"Active"},
+{StudentID:102, Name:"Liam Smith", Age:15, Grade:10, Section:"B", Marks:90, EnrollmentDate:new Date("2020-09-12"), Status:"Active"},
+{StudentID:103, Name:"Olivia Brown", Age:13, Grade:8, Section:"A", Marks:88, EnrollmentDate:new Date("2022-02-15"), Status:"Active"},
+{StudentID:104, Name:"Noah Wilson", Age:16, Grade:11, Section:"C", Marks:75, EnrollmentDate:new Date("2019-07-20"), Status:"Graduated"},
+{StudentID:105, Name:"Ava Miller", Age:14, Grade:9, Section:"B", Marks:92, EnrollmentDate:new Date("2021-01-18"), Status:"Active"},
+{StudentID:106, Name:"James White", Age:17, Grade:12, Section:"C", Marks:80, EnrollmentDate:new Date("2018-05-25"), Status:"Graduated"},
+{StudentID:107, Name:"Charlotte Lee", Age:15, Grade:10, Section:"A", Marks:87, EnrollmentDate:new Date("2020-08-30"), Status:"Active"},
+{StudentID:108, Name:"Ethan Clark", Age:16, Grade:11, Section:"B", Marks:78, EnrollmentDate:new Date("2019-09-10"), Status:"Active"},
+{StudentID:109, Name:"Mia Walker", Age:13, Grade:8, Section:"C", Marks:89, EnrollmentDate:new Date("2022-03-11"), Status:"Active"},
+{StudentID:110, Name:"Henry Adams", Age:17, Grade:12, Section:"A", Marks:82, EnrollmentDate:new Date("2018-04-05"), Status:"Graduated"}
+])
+
+db.Students.find()
+
+db.Students.updateMany(
+    {Grade:10},
+    {$mul:{Markd:1.05}}
+)
+
+db.Students.updateMany(
+    {Grade:12},
+    {$set:{Status:"Alumni"}}
+)
+
+db.Students.updateMany(
+    {},
+    {$rename:{"Marks":"Score"}}
+)
+
+
+db.Students.updateOne(
+    {Name:"Emma Johnson"},
+    {$set:{Section:"B"}}
+)
+
+db.Students.updateMany(
+    {Score:{$gt:90}},
+    {$set:{Scholarship:"Yes"}}
+)
+
+db.Students.deleteMany(
+    {Status:"Graduated"}
+)
+
+db.Students.deleteMany(
+  {
+    Grade: 11,
+    EnrollmentDate: { $lt: new Date("2020-01-01") }
+  }
+)
+
+db.Students.deleteMany(
+  {Name:"James White"}
+)
+
+db.Students.deleteMany(
+  {},
+  {$unset:{Scholarship:""}}
+)
