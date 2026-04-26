@@ -1,0 +1,99 @@
+//1. Create Database
+use SupermarketDB
+
+//2. Create Collection
+db.createCollection("Products")
+
+//3. Insert All Records
+db.Products.insertMany([
+{ProductID:101, Name:"Apple", Category:"Fruits", Price:1.50, StockQuantity:100, Supplier:"Fresh Farms", ExpiryDate:new Date("2025-06-20"), Discount:5, Availability:"In Stock"},
+{ProductID:102, Name:"Orange Juice", Category:"Beverages", Price:3.00, StockQuantity:50, Supplier:"Nature's Best", ExpiryDate:new Date("2024-12-10"), Discount:10, Availability:"In Stock"},
+{ProductID:103, Name:"Rice (5kg)", Category:"Grains", Price:12.00, StockQuantity:40, Supplier:"Agro Supplies", ExpiryDate:new Date("2026-01-01"), Discount:0, Availability:"In Stock"},
+{ProductID:104, Name:"Chicken Breast", Category:"Meat", Price:8.50, StockQuantity:20, Supplier:"Farm Fresh", ExpiryDate:new Date("2024-11-15"), Discount:15, Availability:"In Stock"},
+{ProductID:105, Name:"Whole Wheat Bread", Category:"Bakery", Price:2.50, StockQuantity:60, Supplier:"Baked Goods", ExpiryDate:new Date("2024-09-05"), Discount:5, Availability:"In Stock"},
+{ProductID:106, Name:"Milk (1L)", Category:"Dairy", Price:2.00, StockQuantity:80, Supplier:"Dairy Fresh", ExpiryDate:new Date("2024-08-20"), Discount:0, Availability:"In Stock"},
+{ProductID:107, Name:"Olive Oil (1L)", Category:"Cooking Oil", Price:10.00, StockQuantity:30, Supplier:"Health Foods", ExpiryDate:new Date("2026-05-15"), Discount:5, Availability:"In Stock"},
+{ProductID:108, Name:"Chocolate Bar", Category:"Snacks", Price:1.20, StockQuantity:200, Supplier:"Sweet Treats", ExpiryDate:new Date("2025-02-18"), Discount:20, Availability:"In Stock"},
+{ProductID:109, Name:"Cereal Box", Category:"Breakfast", Price:4.50, StockQuantity:90, Supplier:"Healthy Start", ExpiryDate:new Date("2025-03-22"), Discount:10, Availability:"In Stock"},
+{ProductID:110, Name:"Eggs (Dozen)", Category:"Dairy", Price:3.50, StockQuantity:70, Supplier:"Farm Fresh", ExpiryDate:new Date("2024-07-30"), Discount:0, Availability:"In Stock"}
+])
+
+//4. Retrieve All Products
+db.Products.find()
+
+//5. Find "Olive Oil (1L)"
+db.Products.find({Name:"Olive Oil (1L)"})
+
+//6. Products in Dairy
+db.Products.find({Category:"Dairy"})
+
+//7. Price > 5
+db.Products.find({Price:{$gt:5}})
+
+//8. Discount > 10%
+db.Products.find({Discount:{$gt:10}})
+
+//9. Stock < 50
+db.Products.find({StockQuantity:{$lt:50}})
+
+//10. Expiry before 2024-12-31
+db.Products.find({ExpiryDate:{$lt:new Date("2024-12-31")}})
+
+//11. Supplier = "Farm Fresh"
+db.Products.find({Supplier:"Farm Fresh"})
+
+//12. Name starts with "C"
+db.Products.find({Name:/^C/})
+
+//13. Increase Apple price by 0.50
+db.Products.updateOne(
+  {Name:"Apple"},
+  {$inc:{Price:0.50}}
+)
+
+//14. Add Gluten-Free:false to Bakery
+db.Products.updateMany(
+  {Category:"Bakery"},
+  {$set:{"Gluten-Free":false}}
+)
+
+//15. Set Out of Stock if quantity < 20
+db.Products.updateMany(
+  {StockQuantity:{$lt:20}},
+  {$set:{Availability:"Out of Stock"}}
+)
+
+//16. Add 5% extra discount to Snacks
+db.Products.updateMany(
+  {Category:"Snacks"},
+  {$inc:{Discount:5}}
+)
+
+//17. Change Milk supplier
+db.Products.updateOne(
+  {Name:"Milk (1L)"},
+  {$set:{Supplier:"Dairy Best"}}
+)
+
+//18. Add Rating = 4.0
+db.Products.updateMany(
+  {},
+  {$set:{Rating:4.0}}
+)
+
+//19. Delete expired products
+db.Products.deleteMany(
+  {ExpiryDate:{$lt:new Date()}}
+)
+
+//20. Delete Chocolate Bar
+db.Products.deleteOne(
+  {Name:"Chocolate Bar"}
+)
+
+//21. Remove Discount from Grains
+db.Products.updateMany(
+  {Category:"Grains"},
+  {$unset:{Discount:""}}
+)
+

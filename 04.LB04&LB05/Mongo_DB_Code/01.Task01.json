@@ -1,0 +1,22 @@
+
+//1.Delete students who have the status "Graduated".  
+db.Students.deleteMany({
+  Status: "Graduated"
+})
+
+//2.Remove students from Grade 11 who enrolled before 2020.  
+db.Students.deleteMany({
+  Grade: 11,
+  EnrollmentDate: { $lt: new Date("2020-01-01") }
+})
+
+//3.Delete a specific student record for "James White".  
+db.Students.deleteOne({
+  Name: "James White"
+})
+
+//4.Remove the "Scholarship" field from all students.  
+db.Students.updateMany(
+  {},
+  { $unset: { Scholarship: "" } }
+)

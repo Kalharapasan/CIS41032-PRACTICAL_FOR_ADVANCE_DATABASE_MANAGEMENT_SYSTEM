@@ -2,7 +2,6 @@ use EcomerceDB
 show dbs
 
 db.createCollection("CustemerOrers")
-
 show collections
 
 db.CustomerOrders.insertOne({
@@ -125,4 +124,20 @@ db.CustomerOrders.find({
     { Status: "Shipped" },
     { Status: "Delivered" }
   ]
+})
+
+
+db.CustomerOrders.find({
+  $or: [
+    { Product: "Laptop" },
+    { Product: "Smartphone" }
+  ]
+})
+
+db.CustomerOrders.find({
+  Product: { $in: ["Laptop", "Smartphone"] }
+})
+
+db.CustomerOrders.find({
+  Quantity: { $ne: 1 }
 })
