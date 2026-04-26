@@ -1,46 +1,64 @@
 # CIS41032 - Practical for Advance Database Management System
 
-## Today Update (2026-04-23)
+## Overview
+This repository contains my practical lab work for CIS41032 (Advanced Database Management System), including MongoDB exercise scripts, lab sheets, and supporting documents.
 
-### Task Focus
-Worked on LB03 MongoDB practical exercises for database, collection, and query operations.
+## Repository Structure
 
-### Completed Work
-1. Prepared and reviewed MongoDB scripts for product, employee, and customer order datasets.
-2. Practiced data insertion using both `insertOne` and `insertMany`.
-3. Performed query practice with:
-	- equality filters
-	- range conditions (`$gt`, `$gte`, `$lte`)
-	- logical conditions (`$or`, `$in`)
-	- regex-based filtering (`$regex`)
-4. Practiced sorting, projection, limiting, and document counting operations.
+### 00.Lab Work
+`00.Lab Work/01.Day 01 LB01&LB03 (2026.04.21)/`
 
-### Files Worked On
-- `02.LB03/Task01.bson`
-- `02.LB03/EX01.bson`
-- `02.LB03/EX02.bson`
-- `02.LB03/LB3.bson`
+Contains day-01 practice and exports:
+- `Task01.bson`
+- `LB3.bson`
+- `EX01.bson`
+- `EX02.bson`
+- `lab1.pdf`
+- `lab3.pdf`
 
-### Notes
-- The scripts are organized as step-by-step practice blocks.
-- The same practical set is also available under `00.Lab Work/01.Day 01 LB01&LB03 (2026.04.21)/` with matching `.bson` files.
+### 01.LB01
+`01.LB01/`
 
-## LB04 Update (2026-04-23)
+Contains LB01 lab document:
+- `lab1.pdf`
 
-### Task Focus
-Worked on LB04 practical tasks and script validation for the latest lab submission.
+### 02.LB03
+`02.LB03/`
 
-### Completed Work
-1. Reviewed the LB04 instruction document and aligned scripts with expected outputs.
-2. Prepared and validated BSON script files for exercise execution.
-3. Performed test checks and updated script content for consistency.
-4. Organized LB04 deliverables under the dedicated lab folder.
+Contains LB03 references and MongoDB code:
+- `lab3.pdf`
+- `LB03.docx`
+- `LB03.pdf`
+- `Mongo_DB_Code/01.Task.json`
+- `Mongo_DB_Code/02.EX01.json`
+- `Mongo_DB_Code/03.EX02.json`
 
-### Files Worked On
-- `03.LB04/Ex01.bson`
-- `03.LB04/Test.bson`
-- `03.LB04/lab4.pdf`
+### 03.LB04
+`03.LB04/`
 
-### Notes
-- LB04 now includes both exercise and testing BSON files with the lab reference PDF.
-- This section was added as a separate update so previous LB03 details remain unchanged.
+Contains LB04 references and MongoDB code:
+- `lab4.pdf`
+- `LB04.docx`
+- `LB04.pdf`
+- `Mongo_DB_Code/01.Test.json`
+- `Mongo_DB_Code/02.Ex01.json`
+
+### 04.LB04&LB05
+`04.LB04&LB05/`
+
+Contains combined LB04 and LB05 references with MongoDB code:
+- `lab4&5.pdf`
+- `LB04&LB05.docx`
+- `LB04&LB05.pdf`
+- `Mongo_DB_Code/01.Task01.json`
+- `Mongo_DB_Code/02.Ex01.json`
+- `Mongo_DB_Code/03.EX02.json`
+
+## Work Completed
+- Practiced MongoDB data creation and insertion tasks.
+- Completed query exercises using filtering, projection, and sorting patterns.
+- Organized each lab's code and report files in separate folders.
+- Maintained both early `.bson` practice exports and `.json` code scripts.
+
+## Last Updated
+2026-04-26
