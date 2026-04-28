@@ -54,6 +54,16 @@ Contains combined LB04 and LB05 references with MongoDB code:
 - `Mongo_DB_Code/02.Ex01.json`
 - `Mongo_DB_Code/03.EX02.json`
 
+### 05.LB06
+`05.LB06/`
+
+Contains LB06 references and MongoDB code:
+- `Lab06.pdf`
+- `LB06.docx`
+- `LB06.pdf`
+- `Mongo_DB_Code/Exercise.json`
+- `Mongo_DB_Code/Task01.json`
+
 ## Work Completed
 - Practiced MongoDB data creation and insertion tasks.
 - Completed query exercises using filtering, projection, and sorting patterns.
@@ -61,4 +71,4 @@ Contains combined LB04 and LB05 references with MongoDB code:
 - Maintained both early `.bson` practice exports and `.json` code scripts.
 
 ## Last Updated
-2026-04-26
+2026-04-28
