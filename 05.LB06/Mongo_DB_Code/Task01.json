@@ -1,0 +1,65 @@
+//Create & Switch to Database
+use Student1DB
+
+//Create Collection
+db.createCollection("student")
+
+//Insert Data into student Collection
+db.student.insertMany([
+  { Student_id: "P0001", Class: 11, Section: "A", Course_fee: 200 },
+  { Student_id: "P0002", Class: 10, Section: "A", Course_fee: 800 },
+  { Student_id: "P0003", Class: 11, Section: "A", Course_fee: 100 },
+  { Student_id: "P0004", Class: 8,  Section: "B", Course_fee: 300 },
+  { Student_id: "P0005", Class: 11, Section: "A", Course_fee: 500 },
+  { Student_id: "P0006", Class: 8,  Section: "B", Course_fee: 200 },
+  { Student_id: "P0007", Class: 10, Section: "A", Course_fee: 400 },
+  { Student_id: "P0008", Class: 11, Section: "A", Course_fee: 300 },
+  { Student_id: "P0009", Class: 7,  Section: "B", Course_fee: 250 },
+  { Student_id: "P0010", Class: 6,  Section: "A", Course_fee: 100 }
+])
+
+//Verify Data
+db.student.find().pretty()
+
+
+//01. Retrieve all students who are in Class 11
+db.student.aggregate([
+  { $match: { Class: 11 } }
+])
+
+//02. Find the total course fee of students in Section B
+db.student.aggregate([
+  { $match: { Section: "B" } },
+  { $group: { _id: null, totalFee: { $sum: "$Course_fee" } } }
+])
+
+//03. Calculate the total course fee for each Class
+db.student.aggregate([
+  { $group: { _id: "$Class", totalFee: { $sum: "$Course_fee" } } }
+])
+
+//04. Find the total course fee for each Section where course fee is greater than 200
+db.student.aggregate([
+  { $match: { Course_fee: { $gt: 200 } } },
+  { $group: { _id: "$Section", totalFee: { $sum: "$Course_fee" } } }
+])
+
+//05. Find the total course fee for each Class in Section A
+db.student.aggregate([
+  { $match: { Section: "A" } },
+  { $group: { _id: "$Class", totalFee: { $sum: "$Course_fee" } } }
+])
+
+//06. Find the total course fee for each Class in Section A and sort by total fee (descending)
+db.student.aggregate([
+  { $match: { Section: "A" } },
+  { $group: { _id: "$Class", totalFee: { $sum: "$Course_fee" } } },
+  { $sort: { totalFee: -1 } }
+])
+
+//07. Find the top 2 classes with highest total course fee
+db.student.aggregate([
+  { $group: { _id: "$Class", totalFee: { $sum: "$Course_fee" } } },
+  { $sort: { totalFee: -1 } },
+  { $limit: 2 }
+])

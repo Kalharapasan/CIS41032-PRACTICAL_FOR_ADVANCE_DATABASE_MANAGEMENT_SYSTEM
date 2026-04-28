@@ -1,0 +1,72 @@
+//Create Database & Collection
+use pizza
+
+db.createCollection("order")
+
+//Insert Data
+db.order.insertMany([
+  { Order_id: "O001", Pizza_name: "Margherita", Size: "Medium", Quantity: 2, Order_date: new Date("2021-06-15") },
+  { Order_id: "O002", Pizza_name: "Pepperoni", Size: "Large", Quantity: 1, Order_date: new Date("2021-08-20") },
+  { Order_id: "O003", Pizza_name: "BBQ Chicken", Size: "Medium", Quantity: 3, Order_date: new Date("2022-01-12") },
+  { Order_id: "O004", Pizza_name: "Veggie", Size: "Small", Quantity: 5, Order_date: new Date("2020-11-10") },
+  { Order_id: "O005", Pizza_name: "Margherita", Size: "Medium", Quantity: 2, Order_date: new Date("2020-12-02") },
+  { Order_id: "O006", Pizza_name: "Pepperoni", Size: "Medium", Quantity: 4, Order_date: new Date("2021-06-18") },
+  { Order_id: "O007", Pizza_name: "Hawaiian", Size: "Medium", Quantity: 1, Order_date: new Date("2021-07-22") },
+  { Order_id: "O008", Pizza_name: "BBQ Chicken", Size: "Large", Quantity: 3, Order_date: new Date("2022-01-05") },
+  { Order_id: "O009", Pizza_name: "Margherita", Size: "Medium", Quantity: 3, Order_date: new Date("2022-02-01") },
+  { Order_id: "O010", Pizza_name: "Veggie", Size: "Medium", Quantity: 2, Order_date: new Date("2021-10-15") }
+])
+
+//1. Filter pizzas with size Medium
+db.order.aggregate([
+  { $match: { Size: "Medium" } }
+])
+
+//2. Total quantity of Medium pizzas grouped by pizza name
+db.order.aggregate([
+  { $match: { Size: "Medium" } },
+  { $group: { _id: "$Pizza_name", totalQuantity: { $sum: "$Quantity" } } }
+])
+
+//3. Filter orders by date range (2020-01-30 – 2022-01-03)
+db.order.aggregate([
+  {
+    $match: {
+      Order_date: {
+        $gte: new Date("2020-01-30"),
+        $lte: new Date("2022-01-03")
+      }
+    }
+  }
+])
+
+//4. Total quantity of each pizza grouped by pizza name
+db.order.aggregate([
+  { $group: { _id: "$Pizza_name", totalQuantity: { $sum: "$Quantity" } } }
+])
+
+//5. Total quantity of Medium and Large pizzas separately
+db.order.aggregate([
+  { $match: { Size: { $in: ["Medium", "Large"] } } },
+  { $group: { _id: "$Size", totalQuantity: { $sum: "$Quantity" } } }
+])
+
+//6. Pizza ordered the most (highest total quantity)
+db.order.aggregate([
+  { $group: { _id: "$Pizza_name", totalQuantity: { $sum: "$Quantity" } } },
+  { $sort: { totalQuantity: -1 } },
+  { $limit: 1 }
+])
+
+//7. Total quantity of pizzas ordered in 2021
+db.order.aggregate([
+  {
+    $match: {
+      Order_date: {
+        $gte: new Date("2021-01-01"),
+        $lte: new Date("2021-12-31")
+      }
+    }
+  },
+  { $group: { _id: null, totalQuantity: { $sum: "$Quantity" } } }
+])
