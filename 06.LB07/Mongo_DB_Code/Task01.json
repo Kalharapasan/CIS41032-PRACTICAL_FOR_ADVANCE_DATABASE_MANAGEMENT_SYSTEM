@@ -1,0 +1,153 @@
+//Create & Use Database
+use ecommerceDB
+
+//Create Collection
+db.createCollection("orders")
+
+//Insert Data into orders
+db.orders.insertMany([
+{ OrderID: "O001", CustomerName: "Alice", Product: "Phone", Category: "Electronics", Quantity: 2, Price: 550, OrderDate: ISODate("2022-01-05") },
+{ OrderID: "O002", CustomerName: "Bob", Product: "Laptop", Category: "Electronics", Quantity: 1, Price: 1200, OrderDate: ISODate("2022-01-10") },
+{ OrderID: "O003", CustomerName: "Alice", Product: "Headphones", Category: "Electronics", Quantity: 3, Price: 50, OrderDate: ISODate("2022-01-15") },
+{ OrderID: "O004", CustomerName: "David", Product: "T-shirt", Category: "Fashion", Quantity: 4, Price: 20, OrderDate: ISODate("2022-01-16") },
+{ OrderID: "O005", CustomerName: "Eva", Product: "Shoes", Category: "Fashion", Quantity: 1, Price: 80, OrderDate: ISODate("2022-02-01") },
+{ OrderID: "O006", CustomerName: "Frank", Product: "Book", Category: "Books", Quantity: 5, Price: 15, OrderDate: ISODate("2022-02-10") },
+{ OrderID: "O007", CustomerName: "George", Product: "Phone", Category: "Electronics", Quantity: 1, Price: 550, OrderDate: ISODate("2022-02-11") },
+{ OrderID: "O008", CustomerName: "Alice", Product: "Book", Category: "Books", Quantity: 2, Price: 15, OrderDate: ISODate("2022-02-15") },
+{ OrderID: "O009", CustomerName: "Henry", Product: "T-shirt", Category: "Fashion", Quantity: 2, Price: 20, OrderDate: ISODate("2022-03-01") },
+{ OrderID: "O010", CustomerName: "David", Product: "Laptop", Category: "Electronics", Quantity: 1, Price: 1200, OrderDate: ISODate("2022-03-02") },
+{ OrderID: "O011", CustomerName: "Alice", Product: "Shoes", Category: "Fashion", Quantity: 1, Price: 80, OrderDate: ISODate("2022-03-05") },
+{ OrderID: "O012", CustomerName: "Eva", Product: "Phone", Category: "Electronics", Quantity: 2, Price: 550, OrderDate: ISODate("2022-03-08") },
+{ OrderID: "O013", CustomerName: "Bob", Product: "Book", Category: "Books", Quantity: 3, Price: 15, OrderDate: ISODate("2022-03-10") },
+{ OrderID: "O014", CustomerName: "Henry", Product: "Headphones", Category: "Electronics", Quantity: 2, Price: 50, OrderDate: ISODate("2022-03-15") },
+{ OrderID: "O015", CustomerName: "George", Product: "Shoes", Category: "Fashion", Quantity: 1, Price: 80, OrderDate: ISODate("2022-03-20") }
+])
+
+//1️⃣ Find all orders in the "Electronics" category
+db.orders.aggregate([
+  {
+    $match: { Category: "Electronics" }
+  }
+])
+
+//2️⃣ Calculate total revenue (Quantity × Price) from Electronics category
+db.orders.aggregate([
+  {
+    $match: { Category: "Electronics" }
+  },
+  {
+    $group: {
+      _id: null,
+      totalRevenue: {
+        $sum: { $multiply: ["$Quantity", "$Price"] }
+      }
+    }
+  }
+])
+
+//3️⃣ Group by Category and calculate total revenue per category
+db.orders.aggregate([
+  {
+    $group: {
+      _id: "$Category",
+      totalRevenue: {
+        $sum: { $multiply: ["$Quantity", "$Price"] }
+      }
+    }
+  }
+])
+
+//4️⃣ Sort categories by total revenue in descending order
+db.orders.aggregate([
+  {
+    $group: {
+      _id: "$Category",
+      totalRevenue: {
+        $sum: { $multiply: ["$Quantity", "$Price"] }
+      }
+    }
+  },
+  {
+    $sort: { totalRevenue: -1 }
+  }
+])
+
+//5️⃣ Find the highest quantity ordered for any product
+db.orders.aggregate([
+  {
+    $group: {
+      _id: null,
+      maxQuantity: { $max: "$Quantity" }
+    }
+  }
+])
+
+//6️⃣ Display total quantity of each product ordered by each customer
+db.orders.aggregate([
+  {
+    $group: {
+      _id: {
+        customer: "$CustomerName",
+        product: "$Product"
+      },
+      totalQuantity: { $sum: "$Quantity" }
+    }
+  },
+  {
+    $sort: {
+      "_id.customer": 1,
+      "_id.product": 1
+    }
+  }
+])
+
+//7️⃣ Find orders placed between 2022-02-01 and 2022-03-01
+db.orders.aggregate([
+  {
+    $match: {
+      OrderDate: {
+        $gte: "2022-02-01",
+        $lte: "2022-03-01"
+      }
+    }
+  }
+])
+
+//If stored as ISODate, use this:
+db.orders.aggregate([
+  {
+    $match: {
+      OrderDate: {
+        $gte: ISODate("2022-02-01"),
+        $lte: ISODate("2022-03-01")
+      }
+    }
+  }
+])
+
+//8️⃣ Unwind Product Categories (if Category is an array)
+db.orders.aggregate([
+  {
+    $unwind: "$Category"
+  }
+])
+
+//9️⃣ Write filtered data into a new collection
+db.orders.aggregate([
+  {
+    $match: { Category: "Electronics" }
+  },
+  {
+    $out: "electronics_orders"
+  }
+])
+
+//Bonus (Optional – Good for Exams)
+db.orders.aggregate([
+  {
+    $group: {
+      _id: "$Category",
+      avgPrice: { $avg: "$Price" }
+    }
+  }
+])
