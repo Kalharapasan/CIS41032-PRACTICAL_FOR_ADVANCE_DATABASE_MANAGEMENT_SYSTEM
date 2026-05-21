@@ -1,0 +1,32 @@
+mongoimport --jsonArray --db productSalesDB  --collection product --file product_sales.json
+
+# 1. Import the data into MongoDB
+mongoimport --db productDB --collection product --file product_sales.json --jsonArray
+
+// Switch to database
+use productSalesDB
+
+// 2. Find all sales in the "Electronics" category
+db.product.find({
+  category: "Electronics"
+})
+
+// 3. Find all products with price greater than 50000
+db.product.find({
+  price: { $gt: 50000 }
+})
+
+// 4. Find all products sold after 2024-07-01
+db.product.find({
+  sold_date: { $gt: new Date("2024-07-01") }
+})
+
+// 5. Count the total number of products sold per category
+db.product.aggregate([
+  {
+    $group: {
+      _id: "$category",
+      totalProductsSold: { $sum: 1 }
+    }
+  }
+])

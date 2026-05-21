@@ -1,0 +1,92 @@
+[
+  {
+    "sale_id": "S001",
+    "product_name": "Laptop",
+    "category": "Electronics",
+    "price": 150000,
+    "quantity": 2,
+    "sold_date": { "$date": "2024-06-10T00:00:00Z" },
+    "salesperson": "Anu"
+  },
+  {
+    "sale_id": "S002",
+    "product_name": "Smartphone",
+    "category": "Electronics",
+    "price": 80000,
+    "quantity": 3,
+    "sold_date": { "$date": "2024-06-20T00:00:00Z" },
+    "salesperson": "Nimal"
+  },
+  {
+    "sale_id": "S003",
+    "product_name": "Refrigerator",
+    "category": "Appliances",
+    "price": 120000,
+    "quantity": 1,
+    "sold_date": { "$date": "2024-07-01T00:00:00Z" },
+    "salesperson": "Kamal"
+  },
+  {
+    "sale_id": "S004",
+    "product_name": "Microwave",
+    "category": "Appliances",
+    "price": 30000,
+    "quantity": 2,
+    "sold_date": { "$date": "2024-07-05T00:00:00Z" },
+    "salesperson": "Anu"
+  },
+  {
+    "sale_id": "S005",
+    "product_name": "Headphones",
+    "category": "Electronics",
+    "price": 10000,
+    "quantity": 5,
+    "sold_date": { "$date": "2024-07-15T00:00:00Z" },
+    "salesperson": "Kamal"
+  },
+  {
+    "sale_id": "S006",
+    "product_name": "Air Conditioner",
+    "category": "Appliances",
+    "price": 130000,
+    "quantity": 1,
+    "sold_date": { "$date": "2024-08-01T00:00:00Z" },
+    "salesperson": "Nimal"
+  },
+  {
+    "sale_id": "S007",
+    "product_name": "Tablet",
+    "category": "Electronics",
+    "price": 50000,
+    "quantity": 2,
+    "sold_date": { "$date": "2024-08-12T00:00:00Z" },
+    "salesperson": "Anu"
+  },
+  {
+    "sale_id": "S008",
+    "product_name": "Washing Machine",
+    "category": "Appliances",
+    "price": 90000,
+    "quantity": 1,
+    "sold_date": { "$date": "2024-08-18T00:00:00Z" },
+    "salesperson": "Kamal"
+  },
+  {
+    "sale_id": "S009",
+    "product_name": "Camera",
+    "category": "Electronics",
+    "price": 70000,
+    "quantity": 1,
+    "sold_date": { "$date": "2024-08-25T00:00:00Z" },
+    "salesperson": "Anu"
+  },
+  {
+    "sale_id": "S010",
+    "product_name": "Oven",
+    "category": "Appliances",
+    "price": 45000,
+    "quantity": 1,
+    "sold_date": { "$date": "2024-09-01T00:00:00Z" },
+    "salesperson": "Nimal"
+  }
+]

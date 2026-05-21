@@ -1,0 +1,126 @@
+use Factory
+
+db.factorySupplies.insertMany([
+{
+  SupplyID: "S001",
+  SupplierName: "TexWorld",
+  Material: "Cotton Roll",
+  MaterialType: "Fabric",
+  UnitsSupplied: 100,
+  UnitPrice: 5,
+  SupplyDate: ISODate("2023-01-05")
+},
+{
+  SupplyID: "S002",
+  SupplierName: "SpinFast",
+  Material: "Zippers",
+  MaterialType: "Accessories",
+  UnitsSupplied: 200,
+  UnitPrice: 0.5,
+  SupplyDate: ISODate("2023-01-10")
+},
+{
+  SupplyID: "S003",
+  SupplierName: "TexWorld",
+  Material: "Buttons",
+  MaterialType: "Accessories",
+  UnitsSupplied: 500,
+  UnitPrice: 0.2,
+  SupplyDate: ISODate("2023-01-15")
+},
+{
+  SupplyID: "S004",
+  SupplierName: "ThreadX",
+  Material: "Thread Pack",
+  MaterialType: "Thread",
+  UnitsSupplied: 300,
+  UnitPrice: 1,
+  SupplyDate: ISODate("2023-01-20")
+},
+{
+  SupplyID: "S005",
+  SupplierName: "Colorify",
+  Material: "Dye Pack",
+  MaterialType: "Dye",
+  UnitsSupplied: 50,
+  UnitPrice: 8,
+  SupplyDate: ISODate("2023-01-25")
+},
+{
+  SupplyID: "S006",
+  SupplierName: "TexWorld",
+  Material: "Cotton Roll",
+  MaterialType: "Fabric",
+  UnitsSupplied: 150,
+  UnitPrice: 5,
+  SupplyDate: ISODate("2023-02-01")
+},
+{
+  SupplyID: "S007",
+  SupplierName: "SpinFast",
+  Material: "Zippers",
+  MaterialType: "Accessories",
+  UnitsSupplied: 300,
+  UnitPrice: 0.5,
+  SupplyDate: ISODate("2023-02-05")
+},
+{
+  SupplyID: "S008",
+  SupplierName: "ThreadX",
+  Material: "Thread Pack",
+  MaterialType: "Thread",
+  UnitsSupplied: 400,
+  UnitPrice: 1,
+  SupplyDate: ISODate("2023-02-15")
+},
+{
+  SupplyID: "S009",
+  SupplierName: "TexWorld",
+  Material: "Linen Roll",
+  MaterialType: "Fabric",
+  UnitsSupplied: 100,
+  UnitPrice: 6,
+  SupplyDate: ISODate("2023-02-20")
+},
+{
+  SupplyID: "S010",
+  SupplierName: "Colorify",
+  Material: "Dye Pack",
+  MaterialType: "Dye",
+  UnitsSupplied: 60,
+  UnitPrice: 8,
+  SupplyDate: ISODate("2023-03-01")
+},
+{
+  SupplyID: "S011",
+  SupplierName: "ThreadX",
+  Material: "Thread Pack",
+  MaterialType: "Thread",
+  UnitsSupplied: 350,
+  UnitPrice: 1,
+  SupplyDate: ISODate("2023-03-05")
+},
+{
+  SupplyID: "S012",
+  SupplierName: "SpinFast",
+  Material: "Buttons",
+  MaterialType: "Accessories",
+  UnitsSupplied: 400,
+  UnitPrice: 0.2,
+  SupplyDate: ISODate("2023-03-10")
+}
+])
+
+
+db.factorySupplies.aggregate([
+  {
+    $group: {
+      _id: "$Material",
+      TotalCost: {
+        $sum: {
+          $multiply: ["$UnitsSupplied", "$UnitPrice"]
+        }
+      }
+    }
+  }
+])

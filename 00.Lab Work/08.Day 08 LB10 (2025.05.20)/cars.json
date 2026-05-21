@@ -1,0 +1,44 @@
+[
+  {
+    "car_id": "C001",
+    "brand": "Toyota",
+    "model": "Corolla",
+    "price": 25000,
+    "sold_date": "2024-05-01"
+  },
+  {
+    "car_id": "C002",
+    "brand": "Honda",
+    "model": "Civic",
+    "price": 27000,
+    "sold_date": "2024-06-10"
+  },
+  {
+    "car_id": "C003",
+    "brand": "Ford",
+    "model": "Mustang",
+    "price": 45000,
+    "sold_date": "2024-07-15"
+  },
+  {
+    "car_id": "C004",
+    "brand": "Tesla",
+    "model": "Model 3",
+    "price": 50000,
+    "sold_date": "2024-08-05"
+  },
+  {
+    "car_id": "C005",
+    "brand": "Toyota",
+    "model": "Camry",
+    "price": 28000,
+    "sold_date": "2024-09-01"
+  },
+  {
+    "car_id": "C006",
+    "brand": "Ford",
+    "model": "Focus",
+    "price": 23000,
+    "sold_date": "2024-09-15"
+  }
+]

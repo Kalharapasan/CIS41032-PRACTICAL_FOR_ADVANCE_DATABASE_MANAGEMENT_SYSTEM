@@ -1,0 +1,49 @@
+// Switch to the LibraryDB database
+use LibraryDB;
+
+// Insert the 12 book documents into the libraryBooks collection
+db.libraryBooks.insertMany([
+  { "BookID": "B001", "Title": "Introduction to Databases", "Author": "C.J. Date", "Category": "Database", "Copies": 5, "PublishedYear": 2018, "Status": "Available" },
+  { "BookID": "B002", "Title": "Learning Python", "Author": "Mark Lutz", "Category": "Programming", "Copies": 2, "PublishedYear": 2019, "Status": "Borrowed" },
+  { "BookID": "B003", "Title": "MongoDB Basics", "Author": "Kristina Chodorow", "Category": "Database", "Copies": 8, "PublishedYear": 2020, "Status": "Available" },
+  { "BookID": "B004", "Title": "Clean Code", "Author": "Robert C. Martin", "Category": "Programming", "Copies": 4, "PublishedYear": 2008, "Status": "Available" },
+  { "BookID": "B005", "Title": "Web Development Handbook", "Author": "Jon Duckett", "Category": "Web", "Copies": 3, "PublishedYear": 2017, "Status": "Borrowed" },
+  { "BookID": "B006", "Title": "JavaScript: The Good Parts", "Author": "Douglas Crockford", "Category": "Web", "Copies": 7, "PublishedYear": 2009, "Status": "Available" },
+  { "BookID": "B007", "Title": "React Up & Running", "Author": "Stoyan Stefanov", "Category": "Web", "Copies": 1, "PublishedYear": 2021, "Status": "Borrowed" },
+  { "BookID": "B008", "Title": "Advanced Java", "Author": "Herbert Schildt", "Category": "Programming", "Copies": 6, "PublishedYear": 2016, "Status": "Available" },
+  { "BookID": "B009", "Title": "Cloud Computing Concepts", "Author": "Rajkumar Buyya", "Category": "Cloud", "Copies": 4, "PublishedYear": 2022, "Status": "Borrowed" },
+  { "BookID": "B010", "Title": "Node.js in Action", "Author": "Mike Cantelon", "Category": "Programming", "Copies": 3, "PublishedYear": 2015, "Status": "Available" },
+  { "BookID": "B011", "Title": "Fundamentals of AI", "Author": "Stuart Russell", "Category": "AI", "Copies": 2, "PublishedYear": 2020, "Status": "Available" },
+  { "BookID": "B012", "Title": "Machine Learning Basics", "Author": "Tom Mitchell", "Category": "AI", "Copies": 5, "PublishedYear": 2021, "Status": "Borrowed" }
+]);
+
+db.libraryBooks.find({ "Category": "Programming" });
+
+db.libraryBooks.find({ "Copies": { $lt: 4 } });
+
+db.libraryBooks.find({ 
+  "Status": "Available", 
+  "PublishedYear": { $gt: 2015 } 
+});
+
+db.libraryBooks.find({ "Title": { $regex: "Basics", $options: "i" } });
+
+db.libraryBooks.find({
+  $or: [
+    { "PublishedYear": { $lt: 2010 } },
+    { "Copies": { $gt: 5 } }
+  ]
+});
+
+db.libraryBooks.find({ "Category": { $ne: "Web" } });
+
+db.libraryBooks.find({ "Author": { $in: ["Mark Lutz", "Robert C. Martin"] } });
+
+db.libraryBooks.find({ 
+  "Status": "Borrowed", 
+  "Copies": { $lt: 3 } 
+});
+
+db.libraryBooks.find({ 
+  "PublishedYear": { $gte: 2016, $lte: 2020 } 
+});

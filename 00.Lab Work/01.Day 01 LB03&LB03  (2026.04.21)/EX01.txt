@@ -1,0 +1,40 @@
+use CompanyDB
+
+db.createCollection("Employees")
+
+db.Employees.insertMany([
+  { EmployeeID: 201, Name: "Alice Brown", Department: "IT", Age: 28, Salary: 75000, HireDate: new Date("2021-06-15"), Status: "Active" },
+  { EmployeeID: 202, Name: "Bob Smith", Department: "HR", Age: 35, Salary: 65000, HireDate: new Date("2019-09-22"), Status: "Active" },
+  { EmployeeID: 203, Name: "Charlie Lee", Department: "IT", Age: 40, Salary: 85000, HireDate: new Date("2018-04-10"), Status: "Resigned" },
+  { EmployeeID: 204, Name: "David Wong", Department: "Finance", Age: 45, Salary: 95000, HireDate: new Date("2016-12-05"), Status: "Active" },
+  { EmployeeID: 205, Name: "Emma Johnson", Department: "IT", Age: 29, Salary: 72000, HireDate: new Date("2020-02-18"), Status: "Active" },
+  { EmployeeID: 206, Name: "Frank Adams", Department: "Marketing", Age: 38, Salary: 68000, HireDate: new Date("2017-07-30"), Status: "Resigned" },
+  { EmployeeID: 207, Name: "Grace White", Department: "HR", Age: 31, Salary: 70000, HireDate: new Date("2019-10-10"), Status: "Active" },
+  { EmployeeID: 208, Name: "Henry Clark", Department: "IT", Age: 27, Salary: 77000, HireDate: new Date("2022-01-25"), Status: "Active" },
+  { EmployeeID: 209, Name: "Ivy Turner", Department: "Finance", Age: 33, Salary: 80000, HireDate: new Date("2021-03-12"), Status: "Active" },
+  { EmployeeID: 210, Name: "Jack Miller", Department: "Marketing", Age: 36, Salary: 73000, HireDate: new Date("2018-11-20"), Status: "Active" }
+])
+
+
+db.Employees.find()
+
+db.Employees.find({ Name: "Alice Brown" })
+
+db.Employees.find({ Department: "IT" })
+
+db.Employees.find({ Age: { $gt: 30 } })
+
+db.Employees.find({ Age: { $gt: 30 } })
+
+db.Employees.find({ Salary: { $gt: 75000 } })
+
+db.Employees.find({
+  HireDate: {
+    $gte: new Date("2019-01-01"),
+    $lte: new Date("2021-12-31")
+  }
+})
+
+db.Employees.find({
+  Name: { $regex: "^A" }
+})
