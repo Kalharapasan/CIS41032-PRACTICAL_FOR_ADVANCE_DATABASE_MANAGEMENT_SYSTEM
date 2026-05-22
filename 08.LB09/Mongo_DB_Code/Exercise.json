@@ -1,0 +1,149 @@
+// Use Database
+use LibraryDB
+
+// Insert Data into collection "libraryBooks"
+db.libraryBooks.insertMany([
+    {
+  BookID: "B001",
+  Title: "Introduction to Databases",
+  Author: "C.J. Date",
+  Category: "Database",
+  Copies: 5,
+  PublishedYear: 2018,
+  Status: "Available"
+    },
+    {
+  BookID: "B002",
+  Title: "Learning Python",
+  Author: "Mark Lutz",
+  Category: "Programming",
+  Copies: 2,
+  PublishedYear: 2019,
+  Status: "Borrowed"
+    },
+    {
+  BookID: "B003",
+  Title: "MongoDB Basics",
+  Author: "Kristina Chodorow",
+  Category: "Database",
+  Copies: 8,
+  PublishedYear: 2020,
+  Status: "Available"
+    },
+    {
+  BookID: "B004",
+  Title: "Clean Code",
+  Author: "Robert C. Martin",
+  Category: "Programming",
+  Copies: 4,
+  PublishedYear: 2008,
+  Status: "Available"
+    },
+    {
+  BookID: "B005",
+  Title: "Web Development Handbook",
+  Author: "Jon Duckett",
+  Category: "Web",
+  Copies: 3,
+  PublishedYear: 2017,
+  Status: "Borrowed"
+    },
+    {
+  BookID: "B006",
+  Title: "JavaScript: The Good Parts",
+  Author: "Douglas Crockford",
+  Category: "Web",
+  Copies: 7,
+  PublishedYear: 2009,
+  Status: "Available"
+    },
+    {
+  BookID: "B007",
+  Title: "React Up & Running",
+  Author: "Stoyan Stefanov",
+  Category: "Web",
+  Copies: 1,
+  PublishedYear: 2021,
+  Status: "Borrowed"
+    },
+    {
+  BookID: "B008",
+  Title: "Advanced Java",
+  Author: "Herbert Schildt",
+  Category: "Programming",
+  Copies: 6,
+  PublishedYear: 2016,
+  Status: "Available"
+    },
+    {
+  BookID: "B009",
+  Title: "Cloud Computing Concepts",
+  Author: "Rajkumar Buyya",
+  Category: "Cloud",
+  Copies: 4,
+  PublishedYear: 2022,
+  Status: "Borrowed"
+    },
+    {
+  BookID: "B010",
+  Title: "Node.js in Action",
+  Author: "Mike Cantelon",
+  Category: "Programming",
+  Copies: 3,
+  PublishedYear: 2015,
+  Status: "Available"
+    },
+    {
+  BookID: "B011",
+  Title: "Fundamentals of AI",
+  Author: "Stuart Russell",
+  Category: "AI",
+  Copies: 2,
+  PublishedYear: 2020,
+  Status: "Available"
+    },
+    {
+  BookID: "B012",
+  Title: "Machine Learning Basics",
+  Author: "Tom Mitchell",
+  Category: "AI",
+  Copies: 5,
+  PublishedYear: 2021,
+  Status: "Borrowed"
+    }
+])
+
+// 1. Select all books in the "Programming" category
+db.libraryBooks.find({Category: "Programming"})
+
+// 2. Return all books that have fewer than 4 copies
+db.libraryBooks.find({Copies: { $lt: 4}})
+
+// 3. Select all books that are "Available" and published after 2015
+db.libraryBooks.find({
+  $and: [{ Status: "Available"},{ PublishedYear: { $gt: 2015}}]
+})
+
+// 4. Find all books with the word "Basics" in the title
+db.libraryBooks.find({Title: { $regex: "Basics", $options: "i"}})
+
+// 5. Return books published before 2010 or have more than 5 copies
+db.libraryBooks.find({
+  $or: [{ PublishedYear: { $lt: 2010}},{ Copies: { $gt: 5}}]
+})
+
+// 6. Select books where category is not "Web"
+db.libraryBooks.find({Category: { $ne: "Web"}})
+
+// 7. Return books where author is either "Mark Lutz" or "Robert C. Martin"
+db.libraryBooks.find({Author: {$in: ["Mark Lutz","Robert C. Martin"]}})
+
+// 8. Find all books with "Borrowed" status and fewer than 3 copies
+db.libraryBooks.find({
+  $and: [{ Status: "Borrowed"},{ Copies: {$lt: 3}}]
+})
+
+// 9. Return all books with PublishedYear between 2016 and 2020
+db.libraryBooks.find({
+  PublishedYear: {$gte: 2016,$lte: 2020}
+})

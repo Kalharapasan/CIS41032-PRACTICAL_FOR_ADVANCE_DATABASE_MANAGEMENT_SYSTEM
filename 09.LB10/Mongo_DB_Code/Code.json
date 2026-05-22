@@ -1,0 +1,87 @@
+# Import JSON dataset into MongoDB
+mongoimport --jsonArray --db CarSalesDB --collection cars --file carsales.json
+
+// Verify Database and Collection
+show dbs
+
+use CarSalesDB
+
+show collections
+
+db.cars.find().pretty()
+
+// a. Find all cars sold by brand Toyota
+db.cars.find({
+  brand: "Toyota"
+})
+
+// b. Find all cars with price greater than 30000
+db.cars.find({
+  price: { $gt: 30000 }
+})
+
+// c. Return car_id, brand, and price sorted by price descending
+db.cars.find(
+  {},
+  {
+    _id: 0,
+    car_id: 1,
+    brand: 1,
+    price: 1
+  }
+).sort({ price: -1 })
+
+// d. Find all Ford cars sold after 2024-07-01
+db.cars.find({
+  $and: [
+    { brand: "Ford" },
+    { sold_date: { $gt:("2024-07-01") } }
+  ]
+})
+
+// e. Count how many cars were sold by each brand
+db.cars.aggregate([
+{
+  $group: {
+    _id: "$brand",
+    totalCarsSold: { $sum: 1 }
+  }
+}
+])
+
+// f. Find total revenue from car sales
+db.cars.aggregate([
+{
+  $group: {
+    _id: null,
+    totalRevenue: { $sum: "$price" }
+  }
+}
+])
+
+// g. Project only brand, model, and sold_date
+db.cars.aggregate([
+{
+  $project: {
+    _id: 0,
+    brand: 1,
+    model: 1,
+    sold_date: 1
+  }
+}
+])
+
+// h. Use $match and $group to find total price of Toyota cars sold
+db.cars.aggregate([
+{
+  $match: {
+    brand: "Toyota"
+  }
+},
+{
+  $group: {
+    _id: "$brand",
+    totalToyotaSales: { $sum: "$price" }
+  }
+}
+])

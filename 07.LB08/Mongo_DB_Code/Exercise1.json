@@ -1,0 +1,211 @@
+// Use Database
+use Garment
+
+// 1. Insert all data into collection "garmentOrders"
+db.garmentOrders.insertMany([
+{
+  OrderID: "G001",
+  CustomerName: "Anu",
+  Product: "T-Shirt",
+  Category: "Tops",
+  Quantity: 3,
+  Price: 20,
+  OrderDate: new Date("2023-01-10")
+},
+{
+  OrderID: "G002",
+  CustomerName: "Ravi",
+  Product: "Jeans",
+  Category: "Bottoms",
+  Quantity: 1,
+  Price: 40,
+  OrderDate: new Date("2023-01-15")
+},
+{
+  OrderID: "G003",
+  CustomerName: "Sara",
+  Product: "Jacket",
+  Category: "Outerwear",
+  Quantity: 2,
+  Price: 60,
+  OrderDate: new Date("2023-01-20")
+},
+{
+  OrderID: "G004",
+  CustomerName: "Anu",
+  Product: "Skirt",
+  Category: "Bottoms",
+  Quantity: 1,
+  Price: 25,
+  OrderDate: new Date("2023-01-25")
+},
+{
+  OrderID: "G005",
+  CustomerName: "Nina",
+  Product: "Hoodie",
+  Category: "Outerwear",
+  Quantity: 1,
+  Price: 55,
+  OrderDate: new Date("2023-02-01")
+},
+{
+  OrderID: "G006",
+  CustomerName: "Ravi",
+  Product: "Shorts",
+  Category: "Bottoms",
+  Quantity: 2,
+  Price: 30,
+  OrderDate: new Date("2023-02-10")
+},
+{
+  OrderID: "G007",
+  CustomerName: "Sara",
+  Product: "Blouse",
+  Category: "Tops",
+  Quantity: 2,
+  Price: 35,
+  OrderDate: new Date("2023-02-14")
+},
+{
+  OrderID: "G008",
+  CustomerName: "Nina",
+  Product: "Coat",
+  Category: "Outerwear",
+  Quantity: 1,
+  Price: 90,
+  OrderDate: new Date("2023-02-20")
+},
+{
+  OrderID: "G009",
+  CustomerName: "Anu",
+  Product: "Shirt",
+  Category: "Tops",
+  Quantity: 2,
+  Price: 25,
+  OrderDate: new Date("2023-03-01")
+},
+{
+  OrderID: "G010",
+  CustomerName: "Ravi",
+  Product: "Skirt",
+  Category: "Bottoms",
+  Quantity: 1,
+  Price: 25,
+  OrderDate: new Date("2023-03-03")
+},
+{
+  OrderID: "G011",
+  CustomerName: "Sara",
+  Product: "Jacket",
+  Category: "Outerwear",
+  Quantity: 1,
+  Price: 60,
+  OrderDate: new Date("2023-03-05")
+},
+{
+  OrderID: "G012",
+  CustomerName: "Nina",
+  Product: "T-Shirt",
+  Category: "Tops",
+  Quantity: 2,
+  Price: 20,
+  OrderDate: new Date("2023-03-10")
+}
+])
+
+// 2. Show all orders in the "Tops" category
+db.garmentOrders.find({ Category: "Tops" })
+
+// 3. Calculate total revenue from each category
+db.garmentOrders.aggregate([
+{
+  $group: {
+    _id: "$Category",
+    TotalRevenue: {
+      $sum: { $multiply: ["$Quantity", "$Price"] }
+    }
+  }
+}
+])
+
+// 4. Find the highest quantity of any product ordered
+db.garmentOrders.aggregate([
+{
+  $group: {
+    _id: null,
+    HighestQuantity: { $max: "$Quantity" }
+  }
+}
+])
+
+// 5. Calculate total amount spent by each customer
+db.garmentOrders.aggregate([
+{
+  $group: {
+    _id: "$CustomerName",
+    TotalSpent: {
+      $sum: { $multiply: ["$Quantity", "$Price"] }
+    }
+  }
+}
+])
+
+// 6. Show average price of products in each category
+db.garmentOrders.aggregate([
+{
+  $group: {
+    _id: "$Category",
+    AveragePrice: { $avg: "$Price" }
+  }
+}
+])
+
+// 7. Group by category and count how many products were sold
+db.garmentOrders.aggregate([
+{
+  $group: {
+    _id: "$Category",
+    TotalProductsSold: { $sum: "$Quantity" }
+  }
+}
+])
+
+// 8. Sort customers by total amount spent in descending order
+db.garmentOrders.aggregate([
+{
+  $group: {
+    _id: "$CustomerName",
+    TotalSpent: {
+      $sum: { $multiply: ["$Quantity", "$Price"] }
+    }
+  }
+},
+{
+  $sort: { TotalSpent: -1 }
+}
+])
+
+// 9. Find all orders placed after February 1, 2023
+db.garmentOrders.find({
+  OrderDate: { $gt: new Date("2023-02-01") }
+})
+
+// 10. Group products by category and find maximum price
+db.garmentOrders.aggregate([
+{
+  $group: {
+    _id: "$Category",
+    MaxPrice: { $max: "$Price" }
+  }
+}
+])
+
+// 11. Save all "Outerwear" orders to new collection "outerwearOrders"
+db.garmentOrders.aggregate([
+{
+  $match: { Category: "Outerwear" }
+},
+{
+  $out: "outerwearOrders"
+}
+])

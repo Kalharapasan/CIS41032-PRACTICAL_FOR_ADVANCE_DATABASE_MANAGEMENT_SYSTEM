@@ -1,0 +1,253 @@
+// Use Database
+use Factory
+
+// 1. Insert all data into collection "factorySupplies"
+db.factorySupplies.insertMany([
+    {
+  SupplyID: "S001",
+  SupplierName: "TexWorld",
+  Material: "Cotton Roll",
+  MaterialType: "Fabric",
+  UnitsSupplied: 100,
+  UnitPrice: 5,
+  SupplyDate: new Date("2023-01-05")
+    },
+    {
+  SupplyID: "S002",
+  SupplierName: "SpinFast",
+  Material: "Zippers",
+  MaterialType: "Accessories",
+  UnitsSupplied: 200,
+  UnitPrice: 0.5,
+  SupplyDate: new Date("2023-01-10")
+    },
+    {
+  SupplyID: "S003",
+  SupplierName: "TexWorld",
+  Material: "Buttons",
+  MaterialType: "Accessories",
+  UnitsSupplied: 500,
+  UnitPrice: 0.2,
+  SupplyDate: new Date("2023-01-15")
+    },
+    {
+  SupplyID: "S004",
+  SupplierName: "ThreadX",
+  Material: "Thread Pack",
+  MaterialType: "Thread",
+  UnitsSupplied: 300,
+  UnitPrice: 1,
+  SupplyDate: new Date("2023-01-20")
+    },
+    {
+  SupplyID: "S005",
+  SupplierName: "Colorify",
+  Material: "Dye Pack",
+  MaterialType: "Dye",
+  UnitsSupplied: 50,
+  UnitPrice: 8,
+  SupplyDate: new Date("2023-01-25")
+    },
+    {
+  SupplyID: "S006",
+  SupplierName: "TexWorld",
+  Material: "Cotton Roll",
+  MaterialType: "Fabric",
+  UnitsSupplied: 150,
+  UnitPrice: 5,
+  SupplyDate: new Date("2023-02-01")
+    },
+    {
+  SupplyID: "S007",
+  SupplierName: "SpinFast",
+  Material: "Zippers",
+  MaterialType: "Accessories",
+  UnitsSupplied: 300,
+  UnitPrice: 0.5,
+  SupplyDate: new Date("2023-02-05")
+    },
+    {
+  SupplyID: "S008",
+  SupplierName: "ThreadX",
+  Material: "Thread Pack",
+  MaterialType: "Thread",
+  UnitsSupplied: 400,
+  UnitPrice: 1,
+  SupplyDate: new Date("2023-02-15")
+    },
+    {
+  SupplyID: "S009",
+  SupplierName: "TexWorld",
+  Material: "Linen Roll",
+  MaterialType: "Fabric",
+  UnitsSupplied: 100,
+  UnitPrice: 6,
+  SupplyDate: new Date("2023-02-20")
+    },
+    {
+  SupplyID: "S010",
+  SupplierName: "Colorify",
+  Material: "Dye Pack",
+  MaterialType: "Dye",
+  UnitsSupplied: 60,
+  UnitPrice: 8,
+  SupplyDate: new Date("2023-03-01")
+    },
+    {
+  SupplyID: "S011",
+  SupplierName: "ThreadX",
+  Material: "Thread Pack",
+  MaterialType: "Thread",
+  UnitsSupplied: 350,
+  UnitPrice: 1,
+  SupplyDate: new Date("2023-03-05")
+    },
+    {
+  SupplyID: "S012",
+  SupplierName: "SpinFast",
+  Material: "Buttons",
+  MaterialType: "Accessories",
+  UnitsSupplied: 400,
+  UnitPrice: 0.2,
+  SupplyDate: new Date("2023-03-10")
+    }
+])
+
+// 2. Show all supplies in the "Accessories" material type
+db.factorySupplies.find({
+  MaterialType: "Accessories"
+})
+
+// 3. Calculate total cost (Units × Price) of supplies per material
+db.factorySupplies.aggregate([
+    {
+  $group: {
+    _id: "$Material",
+    TotalCost: {
+      $sum: {
+        $multiply: [
+                        "$UnitsSupplied",
+                        "$UnitPrice"
+                    ]
+                }
+            }
+        }
+    }
+])
+
+// 4. Group by SupplierName and find total units supplied
+db.factorySupplies.aggregate([
+    {
+  $group: {
+    _id: "$SupplierName",
+    TotalUnits: { $sum: "$UnitsSupplied"
+            }
+        }
+    }
+])
+
+// 5. Find average unit price for each material type
+db.factorySupplies.aggregate([
+    {
+  $group: {
+    _id: "$MaterialType",
+    AveragePrice: { $avg: "$UnitPrice"
+            }
+        }
+    }
+])
+
+// 6. List top 2 materials with highest total cost
+db.factorySupplies.aggregate([
+    {
+  $group: {
+    _id: "$Material",
+    TotalCost: {
+      $sum: {
+        $multiply: [
+                        "$UnitsSupplied",
+                        "$UnitPrice"
+                    ]
+                }
+            }
+        }
+    },
+    {
+  $sort: { TotalCost: -1
+        }
+    },
+    {
+  $limit: 2
+    }
+])
+
+// 7. Count number of different materials supplied by each supplier
+db.factorySupplies.aggregate([
+    {
+  $group: {
+    _id: "$SupplierName",
+    Materials: { $addToSet: "$Material"
+            }
+        }
+    },
+    {
+  $project: {
+    NumberOfMaterials: { $size: "$Materials"
+            }
+        }
+    }
+])
+
+// 8. Show all supply records between Jan 20 and Feb 20, 2023
+db.factorySupplies.find({
+  SupplyDate: {
+    $gte: new Date("2023-01-20"),
+    $lte: new Date("2023-02-20")
+    }
+})
+
+// 9. Group by MaterialType and find max and min unit prices
+db.factorySupplies.aggregate([
+    {
+  $group: {
+    _id: "$MaterialType",
+    MaxPrice: { $max: "$UnitPrice"
+            },
+    MinPrice: { $min: "$UnitPrice"
+            }
+        }
+    }
+])
+
+// 10. Calculate total cost per supplier and sort descending
+db.factorySupplies.aggregate([
+    {
+  $group: {
+    _id: "$SupplierName",
+    TotalCost: {
+      $sum: {
+        $multiply: [
+                        "$UnitsSupplied",
+                        "$UnitPrice"
+                    ]
+                }
+            }
+        }
+    },
+    {
+  $sort: { TotalCost: -1
+        }
+    }
+])
+
+// 11. Output all "Fabric" supplies into new collection "fabricSupplies"
+db.factorySupplies.aggregate([
+    {
+  $match: {
+    MaterialType: "Fabric"
+        }
+    },
+    {
+  $out: "fabricSupplies"
+    }
+])
