@@ -1,0 +1,122 @@
+[
+  {
+    "emp_id": "E001",
+    "first_name": "Kamal",
+    "last_name": "Perera",
+    "age": 62,
+    "gender": "Male",
+    "department": "IT",
+    "salary": 120000,
+    "city": "Colombo",
+    "email": "kamal@gmail.com",
+    "experience": 15
+  },
+  {
+    "emp_id": "E002",
+    "first_name": "Nimal",
+    "last_name": "Silva",
+    "age": 45,
+    "gender": "Male",
+    "department": "HR",
+    "salary": 85000,
+    "city": "Kandy",
+    "email": "nimal@gmail.com",
+    "experience": 10
+  },
+  {
+    "emp_id": "E003",
+    "first_name": "Saman",
+    "last_name": "Fernando",
+    "age": 67,
+    "gender": "Male",
+    "department": "Finance",
+    "salary": 150000,
+    "city": "Galle",
+    "email": "saman@gmail.com",
+    "experience": 20
+  },
+  {
+    "emp_id": "E004",
+    "first_name": "Anusha",
+    "last_name": "Jayasuriya",
+    "age": 29,
+    "gender": "Female",
+    "department": "Marketing",
+    "salary": 70000,
+    "city": "Matara",
+    "email": "anusha@gmail.com",
+    "experience": 4
+  },
+  {
+    "emp_id": "E005",
+    "first_name": "Dilani",
+    "last_name": "Senanayake",
+    "age": 61,
+    "gender": "Female",
+    "department": "IT",
+    "salary": 110000,
+    "city": "Kurunegala",
+    "email": "dilani@gmail.com",
+    "experience": 14
+  },
+  {
+    "emp_id": "E006",
+    "first_name": "Ruwan",
+    "last_name": "Dias",
+    "age": 38,
+    "gender": "Male",
+    "department": "Sales",
+    "salary": 65000,
+    "city": "Negombo",
+    "email": "ruwan@gmail.com",
+    "experience": 7
+  },
+  {
+    "emp_id": "E007",
+    "first_name": "Chathuri",
+    "last_name": "Peris",
+    "age": 72,
+    "gender": "Female",
+    "department": "Finance",
+    "salary": 160000,
+    "city": "Jaffna",
+    "email": "chathuri@gmail.com",
+    "experience": 25
+  },
+  {
+    "emp_id": "E008",
+    "first_name": "Ashan",
+    "last_name": "Lakmal",
+    "age": 55,
+    "gender": "Male",
+    "department": "IT",
+    "salary": 98000,
+    "city": "Batticaloa",
+    "email": "ashan@gmail.com",
+    "experience": 11
+  },
+  {
+    "emp_id": "E009",
+    "first_name": "Nadeesha",
+    "last_name": "Fernando",
+    "age": 64,
+    "gender": "Female",
+    "department": "HR",
+    "salary": 105000,
+    "city": "Kalutara",
+    "email": "nadeesha@gmail.com",
+    "experience": 16
+  },
+  {
+    "emp_id": "E010",
+    "first_name": "Tharindu",
+    "last_name": "Wijesinghe",
+    "age": 41,
+    "gender": "Male",
+    "department": "Marketing",
+    "salary": 72000,
+    "city": "Anuradhapura",
+    "email": "tharindu@gmail.com",
+    "experience": 8
+  }
+]
